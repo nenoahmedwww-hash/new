@@ -1,0 +1,199 @@
+#include <iostream>
+#include <string>
+#include <cstdlib>
+using namespace std;
+
+// دالة لتغيير ألوان النصوص والرمز في Windows Console
+void setColor(int colorCode) {
+    // 0A = خلفية سوداء مع نص أخضر فاتح
+    // 0B = خلفية سوداء مع نص أزرق سماوي
+    // 0E = خلفية سوداء مع نص أصفر
+    // 0D = خلفية سوداء مع نص بنفسجي
+    string command = "color 0" + string(1, "0123456789ABCDEF"[colorCode]);
+    system(command.c_str());
+}
+
+// دالة لمسح وتنظيف الشاشة
+void clearScreen() {
+    system("cls");
+}
+
+// دالة عرض الشعار (Header Logo)
+void showHeader() {
+    setColor(10); // اللون الأخضر الفاتح
+    cout << "==========================================================\n";
+    cout << "  _  _   _   _  _ ___ _  _ ' ____   _   ___ ____ _____ \n";
+    cout << " | || | /_\\ | \\| |_ _| \\| |/ ___| /_\\ |_ _| ____|_   _|\n";
+    cout << " | __ |/ _ \\| .` || || .` | |___ / _ \\ | ||  _|   | |  \n";
+    cout << " |_||_/_/ \\_\\_|\\_|___|_|\\_|\\____/_/ \\_\\___|_|     |_|  \n";
+    cout << "==========================================================\n";
+    cout << "             HANIN'S PERSONAL ASSISTANT v5.0              \n";
+    cout << "==========================================================\n\n";
+}
+
+// دالة الآلة الحاسبة (V1)
+void runCalculator() {
+    clearScreen();
+    showHeader();
+    setColor(11); // أزرق سماوي
+    cout << "========== [ CALCULATOR ] ==========\n\n";
+
+    double num1, num2;
+    char op;
+
+    cout << "Enter first number: ";
+    cin >> num1;
+
+    cout << "Enter operator (+ - * /): ";
+    cin >> op;
+
+    cout << "Enter second number: ";
+    cin >> num2;
+
+    cout << "\n------------------------------------\n";
+    cout << "Result = ";
+    switch(op) {
+        case '+': cout << num1 + num2; break;
+        case '-': cout << num1 - num2; break;
+        case '*': cout << num1 * num2; break;
+        case '/':
+            if (num2 != 0) cout << num1 / num2;
+            else cout << "Error! Division by zero.";
+            break;
+        default: cout << "Invalid operator!";
+    }
+    cout << "\n------------------------------------\n";
+    cout << "\nPress Enter to return to main menu...";
+    cin.ignore();
+    cin.get();
+}
+
+// دالة تحويل الوحدات (V2)
+void runUnitConverter() {
+    clearScreen();
+    showHeader();
+    setColor(14); // أصفر
+    cout << "========== [ UNIT CONVERTER ] ==========\n\n";
+    cout << "[1] Kilometers to Miles\n";
+    cout << "[2] Celsius to Fahrenheit\n";
+    cout << "[3] Kilograms to Pounds\n";
+    cout << "Choose conversion type: ";
+
+    int convChoice;
+    cin >> convChoice;
+
+    double value;
+    cout << "\n------------------------------------\n";
+    if (convChoice == 1) {
+        cout << "Enter distance in Kilometers: ";
+        cin >> value;
+        cout << "Result: " << value << " KM = " << value * 0.621371 << " Miles\n";
+    } else if (convChoice == 2) {
+        cout << "Enter temperature in Celsius: ";
+        cin >> value;
+        cout << "Result: " << value << " C = " << (value * 9/5) + 32 << " F\n";
+    } else if (convChoice == 3) {
+        cout << "Enter weight in Kilograms: ";
+        cin >> value;
+        cout << "Result: " << value << " KG = " << value * 2.20462 << " Pounds\n";
+    } else {
+        cout << "Invalid conversion choice!\n";
+    }
+    cout << "------------------------------------\n";
+    cout << "\nPress Enter to return to main menu...";
+    cin.ignore();
+    cin.get();
+}
+
+// دالة الأسئلة السريعة (V3)
+void runQuickQuestions() {
+    clearScreen();
+    showHeader();
+    setColor(13); // بنفسجي
+    cout << "========== [ QUICK QUESTIONS ] ==========\n\n";
+    cout << "[1] What is C++?\n";
+    cout << "[2] Who created this assistant?\n";
+    cout << "[3] Give me a motivational quote\n";
+    cout << "Choose a question: ";
+
+    int qChoice;
+    cin >> qChoice;
+
+    cout << "\n------------------------------------\n";
+    cout << "Answer: ";
+    if (qChoice == 1) {
+        cout << "C++ is a powerful, high-performance programming language!\n";
+    } else if (qChoice == 2) {
+        cout << "This smart assistant was developed by the brilliant developer, Hanin!\n";
+    } else if (qChoice == 3) {
+        cout << "\"The best way to predict the future is to create it.\"\n";
+    } else {
+        cout << "Sorry, I don't have an answer for that.\n";
+    }
+    cout << "------------------------------------\n";
+    cout << "\nPress Enter to return to main menu...";
+    cin.ignore();
+    cin.get();
+}
+
+int main() {
+    int choice = 0;
+
+    while (choice != 5) {
+        clearScreen();
+        showHeader();
+        setColor(10); // أخضر فاتح
+
+        cout << "Hello, Hanin! Welcome to your personal workspace.\n";
+        cout << "What would you like to do today?\n\n";
+
+        cout << "  [1] Calculator\n";
+        cout << "  [2] Convert Units\n";
+        cout << "  [3] Quick Questions\n";
+        cout << "  [4] About Me\n";
+        cout << "  [5] Exit\n\n";
+
+        cout << "Choose an option: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                runCalculator();
+                break;
+            case 2:
+                runUnitConverter();
+                break;
+            case 3:
+                runQuickQuestions();
+                break;
+            case 4:
+                clearScreen();
+                showHeader();
+                setColor(11);
+                cout << "========== [ ABOUT THIS PROJECT ] ==========\n\n";
+                cout << "  Developer  : Hanin\n";
+                cout << "  Project    : AI Personal Assistant\n";
+                cout << "  Version    : 5.0 (Final Edition)\n";
+                cout << "  Language   : C++\n\n";
+                cout << "  Congratulations on finishing your full project!\n";
+                cout << "============================================\n";
+                cout << "\nPress Enter to return to main menu...";
+                cin.ignore();
+                cin.get();
+                break;
+            case 5:
+                clearScreen();
+                setColor(12); // أحمر عند الخروج
+                cout << "\n============================================\n";
+                cout << "   Goodbye, Hanin! See you in the next app! \n";
+                cout << "============================================\n\n";
+                break;
+            default:
+                cout << "\nInvalid choice! Press Enter to try again...";
+                cin.ignore();
+                cin.get();
+        }
+    }
+
+    return 0;
+}
